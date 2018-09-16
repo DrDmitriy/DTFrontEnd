@@ -1,6 +1,3 @@
-<app-map></app-map>
-<div class="footer">
-</div>
 <p-dialog header="Failed Token" appendTo="body" [(visible)]="displayErr" [modal]="true" [closable]="false"
           [draggable]="false" [width]="350">
   <span>Unfortunately, the token is obsolete.</span>
@@ -9,3 +6,7 @@
     <button class="sendEmail" type="button" pButton label="Submit" (click)="route()"></button>
   </p-footer>
 </p-dialog>
+
+<div class="map">
+  <app-map></app-map>
+</div>

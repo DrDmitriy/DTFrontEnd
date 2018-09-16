@@ -8,7 +8,10 @@ import {Route} from '../classes/Route';
 
 export class MarkerService {
   eventMarkerArray: Array<AgmMarker> = new Array<AgmMarker>();
+  verifyMarkerArray: Array<AgmMarker> = new Array<AgmMarker>();
   allMarkerRoute: Array<MarkerRoute> = new Array<MarkerRoute>();
+  eventIconUrl = 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/48/Map-Marker-Marker-Inside-Pink-icon.png';
+  verifyEventIconUrl = 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/48/Map-Marker-Marker-Inside-Azure-icon.png';
 
 
   public getAllMarker() {
@@ -34,7 +37,7 @@ export class MarkerService {
     let marker: AgmMarker = new AgmMarker(manager);
     marker.latitude = lat;
     marker.longitude = lng;
-    marker.iconUrl = 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/48/Map-Marker-Marker-Outside-Pink-icon.png';
+    marker.iconUrl = this.verifyEventIconUrl;
     manager.addMarker(marker);
     return marker;
   }
@@ -43,27 +46,32 @@ export class MarkerService {
     manager.deleteMarker(marker);
   }
 
-  public addEventMarkersOnMap(manager: MarkerManager, events: Array<MapEvent>, isVisible: boolean, eventEmetter: EventEmitter<MapEvent>) {
-    events.forEach(event => {
-      this.addEventMarkerOnMap(manager, event, isVisible,  eventEmetter);
+  public addEventMarkersOnMap(mapContent: MapContentComponent, iconEvent: string){ // manager: MarkerManager, events: Array<MapEvent>, isVisible: boolean, eventEmetter: EventEmitter<MapEvent>) {
+    mapContent.eventService.allShowEvent.forEach(event => {
+      this.addEventMarkerOnMap(mapContent, event, iconEvent);
     });
     return this.eventMarkerArray;
   }
 
-  public addEventMarkerOnMap(manager: MarkerManager, event: MapEvent, isVisible: boolean, eventEmetter: EventEmitter<MapEvent>) {
-    let eventMarker: AgmMarker = new AgmMarker(manager);
+  public addEventMarkerOnMap(mapContent: MapContentComponent, event: MapEvent, iconEvent: string ){//manager: MarkerManager, event: MapEvent, isVisible: boolean, eventEmetter: EventEmitter<MapEvent>) {
+    let eventMarker: AgmMarker = new AgmMarker(mapContent.markerManager);
     eventMarker.latitude = event.latitude;
     eventMarker.longitude = event.longitude;
-    eventMarker.visible = isVisible;
-    // eventMarker.iconUrl = 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/48/Map-Marker-Marker-Inside-Chartreuse-icon.png';
-    eventMarker.iconUrl = 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/48/Map-Marker-Marker-Inside-Pink-icon.png';
-    manager.addMarker(eventMarker);
-    manager.createEventObservable('click', eventMarker).subscribe(value => {
-      this.unFocusEvent(manager);
-      this.focusEvent(manager, eventMarker);
-      eventEmetter.emit(event);
+    eventMarker.visible = mapContent.isVisibleEvents;
+    // eventMarker.iconUrl = 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/48/Map-Marker-Marker-Inside-Pink-icon.png';
+    eventMarker.iconUrl = iconEvent;
+    mapContent.markerManager.addMarker(eventMarker);
+    mapContent.markerManager.createEventObservable('click', eventMarker).subscribe(value => {
+      this.unFocusEvent(mapContent.markerManager);
+      this.focusEvent(mapContent.markerManager, eventMarker);
+      mapContent.openEventPanel.emit(event);
     });
-    this.eventMarkerArray.push(eventMarker);
+    if (event.status === 'publish') {
+
+      this.eventMarkerArray.push(eventMarker);
+    } else {
+      this.verifyMarkerArray.push(eventMarker);
+    }
 
     return eventMarker;
   }
@@ -76,10 +84,19 @@ export class MarkerService {
       event.iconUrl = 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/48/Map-Marker-Marker-Inside-Pink-icon.png';
       manager.updateIcon(event);
     });
+    this.verifyMarkerArray.forEach(event => {
+      event.iconUrl = 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/48/Map-Marker-Marker-Inside-Azure-icon.png';
+      manager.updateIcon(event);
+    });
   }
 
   public changeVisibleAllEvents(manager: MarkerManager, status: boolean) {
     this.eventMarkerArray.forEach(value => {
+      value.visible = status;
+      this.unFocusEvent(manager);
+      manager.updateVisible(value);
+    });
+    this.verifyMarkerArray.forEach(value => {
       value.visible = status;
       manager.updateVisible(value);
     });

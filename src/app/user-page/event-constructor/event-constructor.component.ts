@@ -24,6 +24,7 @@ export class EventConstructorComponent implements OnInit {
   categoryArray: Category[] = [];
   selectedCategory: Category[];
   currentDate = new Date();
+  status = 'verify';
 
   @Output() pressEventButton = new EventEmitter<MapEvent>();
   categoryService: CategoryService;
@@ -53,7 +54,7 @@ export class EventConstructorComponent implements OnInit {
 
   addEvent(): void {
     let mapEvent = new MapEvent(this.eventName, this.eventDescription,
-      this.selectedLat, this.selectedLng, this.location, this.startEvent, this.endEvent, this.selectedCategory);
+      this.selectedLat, this.selectedLng, this.location, this.startEvent, this.endEvent, 'status', this.selectedCategory);
 
     this.eventService.addMapEvent(mapEvent).subscribe();
     this.eventService.addEvent(mapEvent);

@@ -67,7 +67,9 @@ export class MapComponent implements OnInit {
   }
   deleteMarker(event: MapEvent) {
     this.mapContent.markerServices.deleteMarker(this.mapContent.markerManager, this.marker );
-    this.mapContent.addEventOnMap(event);
+    if (event) {
+      this.mapContent.addEventOnMap(event, this.mapContent.verifyEventIconUrl);
+    }
   }
 
   boundsChange($event) {

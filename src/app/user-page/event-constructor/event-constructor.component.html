@@ -1,5 +1,5 @@
 <div class="eventForm" align="center">
-  <p-dialog class="form" showEffect="fade" [(visible)]="display" [draggable]="false" header="New Event"
+  <p-dialog class="form" (onHide)="cancel()" showEffect="fade" [(visible)]="display" [draggable]="false" header="New Event"
             [contentStyle]="{'width' : '600px'}">
     <!-- <p-header>
        Header content here
@@ -50,7 +50,6 @@
 
         <button class="button" label="Clear"  (click)="clear()">Clear</button>
 
-        <button class="button" label="Cancel"  (click)="cancel()">Cancel</button>
       </div>
 
 

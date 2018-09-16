@@ -17,6 +17,10 @@
   overflow-y: auto;
   padding-left: 15px;
 }
+.description{
+ /* word-wrap: break-word;
+  overflow: auto;*/
+}
 
 .footer{
 
