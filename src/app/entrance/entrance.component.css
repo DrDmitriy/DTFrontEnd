@@ -1,0 +1,31 @@
+.help-block{
+  color: white;
+  padding: 10px 10px 10px 10px;
+  -webkit-box-shadow: 0 0 1em rgba(121, 121, 121, 0.49);
+  border-radius: 5px;
+  background: rgb(209, 76, 48);
+  white-space: nowrap;
+  font-family: 'Lato', Calibri, Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+
+input {
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  outline: none;
+  font-family: 'Lato', Calibri, Arial, sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  margin-bottom: 8px;
+  margin-top: 8px;
+}
+
+span{
+  font-family: 'Lato', Calibri, Arial, sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  margin-bottom: 8px;
+}

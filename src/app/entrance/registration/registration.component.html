@@ -1,0 +1,114 @@
+<div class="resgist">
+  <div id="text3" class="resgist">Create an account</div>
+  <form id="form" class="resgist" #userForm="ngForm" novalidate>
+    <div class="formGroup">
+      <input placeholder="First name" id="name" class="names" type="text" name="name"
+             [(ngModel)]="user.name" #name="ngModel" required (focus)="clickFirst()"/>
+      <div class="help-block" id="messageFirst"
+           *ngIf="name?.errors && showErrFirst && hide && (name.touched || name.dirty)">
+        <p *ngIf="name?.errors?.required && showErrFirst && (name.touched || name.dirty)">
+          What's your name?
+        </p>
+      </div>
+      <div class="triangle-right" id="triangleFirst"
+           *ngIf="name?.errors && showErrFirst && hide && (name.touched||name.dirty)">
+      </div>
+    </div>
+
+    <div class="formGroup">
+      <input placeholder="Surname" id="surname" class="names" type="text" name="surname" [(ngModel)]="user.surname"
+             #surname="ngModel" required (focus)="clickLast()"/>
+      <div class="help-block" id="messageLast" *ngIf="surname?.errors && showErrLast
+       && hide && (surname.touched || surname.dirty)">
+        <p *ngIf="surname?.errors?.required && showErrLast && (surname.touched || surname.dirty)">
+          What's your name?
+        </p>
+      </div>
+      <div class="triangle-top" id="triangleLast"
+           *ngIf="surname?.errors && showErrLast && hide && (surname.touched || surname.dirty)">
+      </div>
+    </div>
+
+    <div class="formGroup">
+      <input placeholder="Email address" id="email" class="form-control" type="text" name="email"
+             [(ngModel)]="user.email" #email="ngModel" required
+             pattern="^([^@]+@[^@.]+\.[^@.]{2,6})$"
+             (focus)="clickMail()">
+      <div class="help-block" id="messageLogin" *ngIf="(email?.errors || isExist) && showErrMail && hide && (email.touched||email.dirty)">
+        <p *ngIf="email?.errors?.required && showErrMail && (email.touched||email.dirty)">
+          Email is required.
+        </p>
+        <p *ngIf="email?.errors?.pattern && showErrMail && (email.touched||email.dirty)">
+          Please enter a valid email address.
+        </p>
+        <p *ngIf="isExist && showErrMail">
+          A user with this email is registered.
+        </p>
+      </div>
+      <div class="triangle-right" id="triangleLogin"
+           *ngIf="(email?.errors || isExist) && showErrMail && hide && (email.touched||email.dirty)">
+      </div>
+    </div>
+
+    <div class="formGroup">
+      <input placeholder="Password" id="password" class="form-control" type="password" name="password" minlength="7"
+             [(ngModel)]="user.password" #password="ngModel" required (focus)="clickPassword()"
+              pattern="^.*(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%*&+()]).*$"/>
+      <div class="help-block" id="messagePassword" *ngIf="password.errors && showErrPass
+      && hide && (password.touched||password.dirty)">
+        <p *ngIf="password?.errors?.required && showErrPass && (password.touched||password.dirty)">
+          Password is required.
+        </p>
+        <p class="msg" *ngIf="(password.value!=null&&password.value.length < 7 && password.value.length > 0)
+        && showErrPass && (password.touched||password.dirty)">
+          -Must be at least 7 characters
+        </p>
+        <p class="msg" *ngIf="(password?.errors?.pattern && password.value.match('[A-Z]')==null)
+        && showErrPass && (password.touched||password.dirty)">
+          -There must be at least one large letter
+        </p>
+        <p class="msg" *ngIf="(password?.errors?.pattern && password.value.match('[a-z]')==null)
+        && showErrPass && (password.touched||password.dirty)">
+          -There must be at least one small letter
+        </p>
+        <p class="msg" *ngIf="(password?.errors?.pattern && password.value.match('[0-9]')==null)
+        && showErrPass && (password.touched||password.dirty)">
+          -There must be at least one number
+        </p>
+        <p class="msg" *ngIf="(password?.errors?.pattern && password.value.match('[!@#$%*&+()]')==null)
+        && showErrPass && (password.touched||password.dirty)">
+          -Must have at least a one special characters:“!@#$%*&+()”
+        </p>
+      </div>
+      <div class="triangle-right" id="trianglePass" *ngIf="password?.errors && showErrPass
+      && hide && (password.touched||password.dirty)">
+      </div>
+    </div>
+
+    <div class="formGroup">
+      <input placeholder="Re-enter password" appConfirmEqualValidator="password" id="confirmPassword" class="form-control"
+             type="password" name="confirmPassword" [(ngModel)]="user.confirmPassword" #confirmPassword="ngModel"
+             required (focus)="clickConfPassword()"/>
+      <div class="help-block" id="messageConfPassword" *ngIf="confirmPassword?.errors && showErrConfPass && hide
+      && (confirmPassword.touched || confirmPassword.dirty)">
+        <p *ngIf="confirmPassword?.errors?.required && showErrConfPass && (confirmPassword.touched||confirmPassword.dirty)">
+          Confirm password is required.
+        </p>
+        <p *ngIf="(confirmPassword.touched||confirmPassword.dirty) && confirmPassword?.errors?.notEqual &&
+          !confirmPassword.errors?.required">
+          Password and Confirm password does not match.
+        </p>
+      </div>
+      <div class="triangle-right" id="triangleConfPass" *ngIf="confirmPassword?.errors && showErrConfPass
+      && hide && (confirmPassword.touched||confirmPassword.dirty)">
+      </div>
+    </div>
+    <button pButton type="button" class="ui-button-raised ui-button-success" label="Sign Up"
+            icon="pi pi-user-plus" iconPos="left" [disabled]="userForm.invalid"
+            (click)="registration(email.value, password.value, name.value, surname.value)"></button>
+
+    <button pButton type="button" icon="pi pi-user" iconPos="left" class="ui-button-raised ui-button-rounded"
+            label="Sign in with Facebook" id="FB" (click)="joinFacebook()">
+    </button>
+  </form>
+</div>

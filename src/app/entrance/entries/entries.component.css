@@ -1,0 +1,50 @@
+.header{
+  color: white;
+  position:fixed;
+}
+
+#text1{
+  left:700px;
+  top:20px;
+  height:60px;
+}
+
+#text2{
+  left:895px;
+  top:20px;
+  height:60px;
+}
+
+.header input {
+  height: 23px;
+  border-radius: 6px;
+  outline: none;
+}
+
+#join{
+  left:1080px;
+  top:39px;
+  height:22px;
+}
+
+#recoveryPass{
+  left:895px;
+  top:70px;
+  font-size: small;
+  cursor: pointer;
+}
+
+a:link,
+a:visited,
+a:active{
+  text-decoration: none;
+  color: white;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: white;
+}
+
+
+

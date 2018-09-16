@@ -1,0 +1,127 @@
+<p-table [columns]="cols" [value]="rows" [rows]="15" [paginator]="true"
+         selectionMode="single" [(selection)]="selectedRows" dataKey="id"
+         [scrollable]="true" scrollHeight="460px" [loading]="loading"
+         (onRowSelect)="onRowSelect($event)">
+  <ng-template pTemplate="caption">
+    <div class="ui-helper-clearfix">
+      <button type="button" pButton icon="pi pi-refresh" iconPos="right" label="Refresh" style="float:left"
+              (click)="refresh()"></button>
+      <button type="button" pButton icon="pi pi-plus" iconPos="right" label="Add" style="float:right"
+              (click)="addEvent()"></button>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th *ngFor="let col of columns  | slice:0:1" width="50px">
+        {{col.header}}
+      </th>
+      <th *ngFor="let col of columns  | slice:1">
+        {{col.header}}
+      </th>
+      <th width="100px"></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <tr [pSelectableRow]="rowData">
+      <td class="rows" *ngFor="let col of columns | slice:0:1" width="50px">
+        {{rowData[col.field]}}
+      </td>
+      <td class="rows" *ngFor="let col of columns | slice:1">
+        {{rowData[col.field]}}
+      </td>
+      <td class="submit" width="50px">
+        <p-button type="button" icon="pi pi-plus" class="ui-button-success" (click)="updateStatus(rowData)"></p-button>
+      </td>
+      <td width="50px">
+        <p-button type="button" icon="pi pi-minus" (click)="delete(rowData)"></p-button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-dialog header="Map" appendTo="body" [(visible)]="displayDialog" [responsive]="true" [modal]="true"
+          (onHide)="cancel()"
+          [draggable]="false" [width]="1130">
+  <hr align="left" width="1" size="500" class="info" id="vert"/>
+  <h1 class="info" id="infoText">Information</h1>
+  <span class="info" id="label">Label:</span>
+  <label for="labelIn"></label><input class="info" id="labelIn" type="text" [(ngModel)]="label">
+  <span class="info" id="start">Start Event: {{startEvent}}</span>
+  <span class="info" id="end">Event End: {{endEvent}}</span>
+  <span class="info" id="lat">lat: {{lat}}</span>
+  <span class="info" id="lng">lng: {{lng}}</span>
+  <span class="info" id="create">Creation Date: {{creationDate}}</span>
+  <span class="info" id="categories">Categories:</span>
+  <p-multiSelect class="info" id="categoriesIn" [options]="categories" [(ngModel)]="selectedCategories"
+                 [panelStyle]="{minWidth:'12em'}" [maxSelectedLabels]="1"></p-multiSelect>
+  <span class="info" id="location">Location:</span>
+  <label for="locationIn"></label><input class="info" id="locationIn" type="text" [(ngModel)]="location">
+  <span class="info" id="description">Description:</span>
+  <label>
+    <textarea class="info" id="descriptionIn" [(ngModel)]="description"></textarea>
+  </label>
+
+  <button pButton type="button" label="Save and Exit" id="save" class="info"
+          (click)="saveTable(id, label, location, description)"></button>
+  <agm-map [latitude]="lat" [longitude]="lng" [zoom]=16>
+    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+  </agm-map>
+  <p-toast position="top-left" [baseZIndex]="100"></p-toast>
+</p-dialog>
+
+<p-dialog header="Map" appendTo="body" [(visible)]="displayDialogAdd" [responsive]="true" [modal]="true"
+          (onHide)="cancel()"
+          [draggable]="false" [width]="1195">
+
+  <hr align="left" width="1" size="500" class="info" id="vert1"/>
+  <h1 class="info" id="infoText1">New Event</h1>
+  <span class="info" id="label1">Label:</span>
+  <label for="labelIn1"></label><input class="info" id="labelIn1" type="text" [(ngModel)]="label">
+  <span class="info" id="start1">Start Event:</span>
+  <label for="startIn1"></label>
+  <p-calendar placeholder="dd.MM.yyyy" class="info" id="startIn1" [(ngModel)]="startEvent" [showIcon]="true"
+              [showTime]="true" dateFormat="dd.mm.yy" [inputStyle]="{'width':'132px', 'fontSize':'16px'}"
+   [panelStyle]="{'height':'10px'}"></p-calendar>
+  <span class="info" id="end1">Event End:</span>
+  <label for="endIn1"></label>
+  <p-calendar placeholder="dd.MM.yyyy" class="info" id="endIn1" [(ngModel)]="endEvent" [showIcon]="true"
+              dateFormat="dd.mm.yy" [inputStyle]="{'width':'135px', 'fontSize':'16px'}"
+              [showTime]="true" [panelStyle]="{'height':'10px'}"></p-calendar>
+  <span class="info" id="lat1">lat:</span>
+  <label for="latIn1"></label><input class="info" id="latIn1" readonly [ngModel]="lat">
+  <span class="info" id="lng1">lng:</span>
+  <label for="lngIn1"></label><input class="info" id="lngIn1" readonly [ngModel]="lng">
+  <span class="info" id="categories1">Categories:</span>
+  <p-multiSelect class="info" id="categoriesIn1" [options]="categories" [(ngModel)]="selectedCategories"
+                 [panelStyle]="{minWidth:'12em'}"></p-multiSelect>
+  <span class="info" id="location1">Location:</span>
+  <label for="locationIn1"></label><input class="info" id="locationIn1" type="text" [(ngModel)]="location">
+  <span class="info" id="description1">Description:</span>
+  <label>
+    <textarea class="info" id="descriptionIn1" [(ngModel)]="description"></textarea>
+  </label>
+  <button pButton type="button" label="Add Event" id="addEv" class="info"
+          (click)="sendEvent(label, startEvent, endEvent, lat, lng, location, description)"></button>
+  <agm-map [latitude]=55.667593806267654 [longitude]=37.62490465785959 [zoom]=10 (mapClick)="handleMapClick($event)">
+    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+  </agm-map>
+  <p-toast position="top-left" [baseZIndex]="100" [styleClass]="ui-messages-success"></p-toast>
+</p-dialog>
+
+<button id="logout" type="button" pButton icon="pi pi-power-off" iconPos="right" label="Log Out"
+        style="float:left"
+        (click)="logout()"></button>
+<h2 id="names">{{name}} {{surname}}</h2>
+
+<p-toast position="top-left" [baseZIndex]="100"></p-toast>
+
+<p-dialog header="Failed Token" appendTo="body" [(visible)]="displayErr" [modal]="true" [closable]="false"
+          [draggable]="false" [width]="350">
+  <span>Unfortunately, the token is obsolete.</span>
+
+  <p-footer>
+    <button class="sendEmail" type="button" pButton label="Submit" (click)="route()"></button>
+  </p-footer>
+</p-dialog>
+<p-toast position="top-left" [baseZIndex]="100"></p-toast>
+

@@ -1,0 +1,31 @@
+.button{
+  padding-right: auto;
+  padding-left: auto;
+  margin-right: 35px;
+  width: 80px;
+  height: 30px;
+  text-align: center;
+}
+.inputField{
+
+width: 175px;
+  height: 30px;
+
+}
+.string {
+
+}
+
+.choose {
+  float: right;
+  margin-right: 15px;
+
+}
+.location {
+
+}
+#location{
+  margin-left: 0px;
+}
+
+

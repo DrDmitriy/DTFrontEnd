@@ -1,0 +1,25 @@
+<div id="text1" class="header">Email
+  <br>
+  <label>
+    <input id="mail" type="text" name="mail" [(ngModel)]="user.email" #mail="ngModel" required>
+  </label>
+  <br>
+</div>
+
+<div id="text2" class="header">Password
+  <br>
+  <label>
+    <input type="password" name="password" [(ngModel)]="user.password" #password="ngModel" required>
+  </label>
+  <br>
+</div>
+
+<div id="join" class="header">
+  <button pButton type="button" class="ui-button-raised ui-button-rounded" label="Log In"
+          (click)="logIn(mail.value, password.value)"></button>
+</div>
+
+<div id="recoveryPass" class="header">
+  <a (click)="showDialog()">Forgot your password?</a>
+</div>
+<p-toast position="bottom-right" [baseZIndex]="100"></p-toast>

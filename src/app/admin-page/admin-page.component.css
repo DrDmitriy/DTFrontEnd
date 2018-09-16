@@ -1,0 +1,268 @@
+p-table {
+  position: fixed;
+  top: 100px;
+  height: 465px;
+}
+
+.rows {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+}
+
+td:hover {
+  overflow: visible;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+
+.info {
+  position: absolute;
+  font-family: 'Lato', Calibri, Arial, sans-serif;
+  padding-left: 2px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+input {
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+#vert {
+  left: 630px;
+}
+
+#infoText {
+  left: 800px;
+}
+
+#label {
+  left: 640px;
+  top: 62px;
+  font-size: 20px;
+}
+
+#labelIn {
+  width: 430px;
+  left: 695px;
+  top: 60px;
+  font-size: 20px;
+}
+
+#start {
+  left: 640px;
+  top: 110px;
+  font-size: 20px;
+}
+
+#end {
+  left: 888px;
+  top: 110px;
+  font-size: 20px;
+}
+
+#lat {
+  left: 640px;
+  top: 160px;
+  font-size: 20px;
+}
+
+#lng {
+  left: 888px;
+  top: 160px;
+  font-size: 20px;
+}
+
+#create {
+  left: 640px;
+  top: 210px;
+  font-size: 20px;
+}
+
+#categories{
+  left: 878px;
+  top: 210px;
+  font-size: 20px;
+}
+
+#categoriesIn{
+  left: 970px;
+  top: 208px;
+  font-size: 16px;
+}
+
+#location {
+  left: 640px;
+  top: 262px;
+  font-size: 20px;
+}
+
+#locationIn {
+  width: 400px;
+  left: 725px;
+  top: 260px;
+  font-size: 20px;
+}
+
+#description {
+  left: 640px;
+  top: 310px;
+  font-size: 20px;
+}
+
+#descriptionIn {
+  resize: none;
+  border-radius: 5px;
+  width: 485px;
+  height: 140px;
+  left: 640px;
+  top: 335px;
+  font-size: 20px;
+}
+
+#save {
+  top: 480px;
+  left: 1005px;
+}
+
+#vert1 {
+  left: 630px;
+}
+
+#infoText1 {
+  left: 800px;
+}
+
+#label1 {
+  left: 640px;
+  top: 72px;
+  font-size: 20px;
+}
+
+#labelIn1 {
+  width: 478px;
+  left: 695px;
+  top: 70px;
+  font-size: 20px;
+}
+
+#start1 {
+  left: 640px;
+  top: 122px;
+  font-size: 20px;
+}
+
+#startIn1{
+  left: 735px;
+  top: 120px;
+  font-size: 20px;
+}
+
+#end1 {
+  left: 910px;
+  top: 122px;
+  font-size: 20px;
+}
+
+#endIn1{
+  width: 110px;
+  left: 997px;
+  top: 120px;
+  font-size: 20px;
+}
+
+#lat1 {
+  left: 640px;
+  top: 172px;
+  font-size: 20px;
+}
+
+#latIn1 {
+  width: 240px;
+  left: 670px;
+  top: 170px;
+  font-size: 20px;
+}
+
+#lng1 {
+  left: 910px;
+  top: 172px;
+  font-size: 20px;
+}
+
+#lngIn1 {
+  width: 228px;
+  left: 945px;
+  top: 170px;
+  font-size: 20px;
+}
+
+#categories1{
+  left: 640px;
+  top: 222px;
+  font-size: 20px;
+}
+
+#categoriesIn1{
+  left: 735px;
+  top: 220px;
+  font-size: 16px;
+}
+
+#location1 {
+  left: 640px;
+  top: 272px;
+  font-size: 20px;
+}
+
+#locationIn1 {
+  width: 448px;
+  left: 725px;
+  top: 270px;
+  font-size: 20px;
+}
+
+#description1 {
+  left: 640px;
+  top: 320px;
+  font-size: 20px;
+}
+
+#descriptionIn1 {
+  resize: none;
+  border-radius: 5px;
+  width: 532px;
+  height: 140px;
+  left: 640px;
+  top: 345px;
+  font-size: 20px;
+}
+
+#addEv {
+  top: 490px;
+  left: 1070px;
+}
+
+#head{
+  float: right;
+}
+
+#names{
+  color: white;
+  float: right;
+  margin-right: 15%;
+  margin-top: 3%;
+}
+
+#logout{
+  left:87%;
+  top:40px;
+}
+
+agm-map {
+  width:600px;
+  height:500px;
+}

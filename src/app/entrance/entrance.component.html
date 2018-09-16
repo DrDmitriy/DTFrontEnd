@@ -1,0 +1,17 @@
+<app-information></app-information>
+<app-registration></app-registration>
+<app-entries (active)="show($event)"></app-entries>
+
+<p-dialog header="Forgot password?" appendTo="body" (onHide)="cancel()" [(visible)]="display" [modal]="true"
+          [draggable]="false" [width]="350">
+  <span>Enter your e-mail address and we'll send you a link to reset your password.</span>
+
+  <input placeholder="Email address" id="email" class="form-control" type="text" name="mail"
+         [(ngModel)]="user.email" #email="ngModel" required
+         pattern="^([^@]+@[^@.]+\.[^@.]{2,6})$"/>
+  <p-toast *ngIf="email?.errors || !email?.errors" position="bottom-right"></p-toast>
+  <p-footer>
+    <button class="sendEmail" type="button" pButton icon="pi pi-check"
+            (click)="submit(email.valid, email.value)" label="Submit" [disabled]="this.press"></button>
+  </p-footer>
+</p-dialog>

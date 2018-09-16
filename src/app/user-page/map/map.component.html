@@ -1,0 +1,69 @@
+
+
+<div class="body">
+  <div class="google-map">
+    <agm-map #AgmMap [latitude]="(startPointLat)" [longitude]="(startPointLng)" [zoom]=12 [draggableCursor]="cursor"
+             (mapClick)="clickOnMap($event)" (boundsChange)="boundsChange($event)">
+      <app-map-content (openEventPanel)="openEventInfoPanel($event)" (openRoutePanel)="openRouteInfoPanel($event)"></app-map-content>
+    </agm-map>
+  </div>
+
+  <div class="rigth-panel">
+
+    <div class="switch">
+      <label class="switch-label">Show routes</label>
+      <div class="toggle">
+        <p-inputSwitch (onChange)="changeVisibleRoutes()"
+                       [(ngModel)]="showRoutes"></p-inputSwitch>
+      </div>
+    </div>
+
+
+    <div class="route-info">
+      <app-route-info-panel></app-route-info-panel>
+    </div>
+
+    <div class="switch">
+      <label class="switch-label">Show events </label>
+      <div class="toggle">
+        <p-inputSwitch (onChange)="changeVisibleEventMarker()"
+                       [(ngModel)]="showEvents"></p-inputSwitch>
+      </div>
+      <div class="choose" *ngIf="showEvents">
+        <p-multiSelect id="choose" [showToggleAll]="false" defaultLabel="" maxSelectedLabels="1"
+                       [options]="categoryArray" [(ngModel)]="selectedCategory"
+                       optionLabel="categoryName" [style]="{width:'150px','height': '27px', 'font-size' : '16px', 'text-align':'center', 'vertical-align':'middle'}"
+                       [panelStyle]="{width:'125px'}" (onChange)="showOnlySelectedEvents()">
+        </p-multiSelect>
+      </div>
+    </div>
+
+    <div class="event-info">
+      <app-info-panel></app-info-panel>
+    </div>
+    <div class="low-button">
+      <button id="addEventButton" label="Add New Event" (onClick)="onEventMode()" (click)="onEventMode()">Add New Event</button>
+    </div>
+
+  </div>
+
+
+</div>
+<!--<h2> Resent routes</h2>
+<ul>
+  <li *ngFor="let route of resentRoutes">
+    <span> id: {{route.routeID}},
+      dist: {{route.distance}}
+    </span></li>
+</ul>-->
+
+
+<div class="constructor">
+  <app-event-constructor (pressEventButton)="deleteMarker($event)"></app-event-constructor>
+</div>
+
+
+
+<button id="logout" type="button" pButton icon="pi pi-power-off" iconPos="right" label="Log Out"
+        (click)="logout()"></button>
+<h1 id="names">{{name}} {{surname}}</h1>

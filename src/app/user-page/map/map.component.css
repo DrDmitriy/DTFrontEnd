@@ -1,0 +1,107 @@
+.body{
+  position:absolute;
+  left:0;
+  top:105px;
+  width:70%;
+  height: 540px;
+}
+.google-map{
+  height: 98%;
+  margin-left: 0.5%;
+  margin-top: 0.5%;
+  border-style: solid;
+  border-width: 3px;
+  border-color: black;
+}
+
+agm-map {
+  width: 100%;
+  height: 100%;
+}
+
+.rigth-panel{
+  color: black;
+  position: absolute;
+  top: -5px;
+  left: 960px;
+  height: 100%;
+  width: 390px;
+  margin-left: 1%;
+  background-color: azure;
+  border-style: solid;
+  border-width: 3px;
+  border-color: black;
+}
+
+.route-info {
+  height: 42%;
+}
+
+.event-info{
+  background-color: azure;
+}
+
+.low-button{
+  bottom: 0px;
+  position: inherit;
+  height: 4.5%;
+  width: 100%;
+
+  border-top-style: solid;
+  border-top-width: 3px;
+  border-top-color: black;
+}
+
+#addEventButton{
+  position: inherit;
+  width: 100%;
+  height: 100%;
+
+  background-color: lightgoldenrodyellow;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.switch{
+  position: inherit;
+  height: 5%;
+  width: 100%;
+
+  padding-top: 5px;
+  background-color: lightgoldenrodyellow;
+
+  border-bottom-style: solid;
+  border-bottom-color: black;
+  border-bottom-width: medium;
+
+  border-top-style: solid;
+  border-top-color: black;
+  border-top-width: medium;
+}
+
+.switch-label{
+  width: 25%;
+  margin-left: 15px;
+}
+
+.toggle{
+  margin-top: -22px;
+  margin-left: 120px;
+}
+
+.choose {
+  float: left;
+  width: 30%;
+}
+
+#names{
+  color: white;
+  float: right;
+  margin-right: 15%;
+  margin-top: 3%;
+}
+
+#logout{
+  left:87%;
+  top:40px;
+}
