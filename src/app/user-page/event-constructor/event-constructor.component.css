@@ -16,11 +16,13 @@
 }
 .description{
   width: 175px;
-  height: 65px;
+  height: 105px;
   max-width: 250px;
-  max-height: 90px;
+  max-height: 150px;
 }
-
+#addButton{
+  margin-left: 35px;
+}
 .choose {
   float: right;
   margin-right: 15px;
@@ -31,6 +33,12 @@
 }
 #location{
   margin-left: 0px;
+}
+.emmptySpaceEnd{
+  height: 40px;
+}
+.emmptySpaceStart{
+  height: 20px;
 }
 
 
