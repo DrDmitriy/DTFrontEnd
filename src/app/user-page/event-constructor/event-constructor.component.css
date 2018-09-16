@@ -8,14 +8,21 @@
 }
 .inputField{
 
-width: 175px;
+  width: 175px;
   height: 30px;
-
 }
-.string {
-
+.fieldName{
+  margin-top: 5px;
 }
-
+.description{
+  width: 175px;
+  height: 105px;
+  max-width: 250px;
+  max-height: 150px;
+}
+#addButton{
+  margin-left: 35px;
+}
 .choose {
   float: right;
   margin-right: 15px;
@@ -26,6 +33,12 @@ width: 175px;
 }
 #location{
   margin-left: 0px;
+}
+.emmptySpaceEnd{
+  height: 40px;
+}
+.emmptySpaceStart{
+  height: 20px;
 }
 
 

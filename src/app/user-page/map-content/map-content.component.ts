@@ -30,7 +30,7 @@ export class MapContentComponent implements OnInit {
               public polilineManager: PolylineManager,
               public markerManager: MarkerManager,
               public infoWindowsManager: InfoWindowManager,
-              private eventService: EventService,
+              public eventService: EventService,
               private polygonManager: PolygonManager) {
   }
 
@@ -41,6 +41,8 @@ export class MapContentComponent implements OnInit {
   isVisibleRoutes = true;
   isVisibleEvents = false;
   eventMarkerArray: Array<EventMarker> = [];
+  eventIconUrl = 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/48/Map-Marker-Marker-Inside-Pink-icon.png';
+  verifyEventIconUrl = 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/48/Map-Marker-Marker-Inside-Azure-icon.png';
 
   @Input() localEvent: MapEvent;
   @Output() openEventPanel = new EventEmitter<MapEvent>();
@@ -56,34 +58,36 @@ export class MapContentComponent implements OnInit {
     this.eventService.neBorderLoad = ne;
     this.eventService.swBorderLoad = sw;
     this.httpRefreshEventArray();
+    this.httpRefreshVerifyEventArray();
   }
 
  public addAllEventsOnMap() {
-     this.markerServices.addEventMarkersOnMap(this.markerManager, this.eventService.allShowEvent, this.isVisibleEvents, this.openEventPanel);
-     // .forEach(eventMarker => this.addEventMarkerListener(eventMarker, 'click'));
+     this.markerServices.addEventMarkersOnMap(this, this.eventIconUrl);//this.markerManager, this.eventService.allShowEvent, this.isVisibleEvents, this.openEventPanel);
+
   }
 
-  public addEventOnMap(mapEvent: MapEvent) {
-    let marker = this.markerServices.addEventMarkerOnMap(this.markerManager, mapEvent, this.isVisibleEvents, this.openEventPanel);
+  public addEventOnMap(mapEvent: MapEvent, iconEvent: string) {
+    let marker = this.markerServices.addEventMarkerOnMap(this, mapEvent, iconEvent);// .markerManager, mapEvent, this.isVisibleEvents, this.openEventPanel);
+
     this.eventMarkerArray.push({event: mapEvent, marker: marker});
+
     return marker;
     }
-
-/*
-  openEventWindow(eventMarker: AgmMarker) {
-    /!*eventMarker.iconUrl = 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/48/Map-Marker-Marker-Inside-Chartreuse-icon.png';
-    this.markerManager.updateIcon(eventMarker);*!/
-    this.markerServices.unFocusEvent(this.markerManager);
-    this.markerServices.focusEvent(this.markerManager, eventMarker);
-    console.log('eventMarker.longitude = ' + eventMarker.longitude);
-    console.log('eventMarker.latitude = ' + eventMarker.latitude);
-  }
-*/
 
   public httpRefreshEventArray() {
      this.eventService.httpGetMapEvent().subscribe(value => value.forEach(event => {
       this.eventService.addEvent(event);
-      let marker = this.addEventOnMap(event);
+      console.log("PPPP " + event.status );
+      let marker = this.addEventOnMap(event, this.eventIconUrl);
+      this.eventMarkerArray.push({event: event, marker: marker});
+    }));
+  }
+
+  public httpRefreshVerifyEventArray() {
+    this.eventService.httpGetUserVerifyEvents().subscribe(value => value.forEach(event => {
+      this.eventService.addEvent(event);
+      console.log("VVVV " + event.status );
+      let marker = this.addEventOnMap(event, this.verifyEventIconUrl);
       this.eventMarkerArray.push({event: event, marker: marker});
     }));
   }

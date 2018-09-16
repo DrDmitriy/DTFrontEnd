@@ -32,7 +32,7 @@ export class EventInfoPanelComponent implements OnInit {
   }
 
   public clearDispaly() {
-    this.event = new MapEvent('', '', 0, 0, '', null, null, null);
+    this.event = new MapEvent('', '', 0, 0, '', null, null, null, null);
     this.startDate = '';
     this.endDate = '';
     this.categories = '';

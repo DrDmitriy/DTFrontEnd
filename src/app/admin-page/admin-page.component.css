@@ -258,8 +258,9 @@ input {
 }
 
 #logout{
-  left:87%;
-  top:40px;
+  position: absolute;
+  top: 5%;
+  right: 3%;
 }
 
 agm-map {

@@ -12,9 +12,10 @@ export class MapEvent {
   location: String;
   startEvent: number;
   endEvent: number;
+  status: string;
 
   constructor(eventName: String, eventDescription: String, latitude: number, longitude: number, location: String,
-              startEvent: number, endEvent: number, categories: Array<Category> ) {
+              startEvent: number, endEvent: number, status: string, categories: Array<Category> ) {
     this.eventName = eventName;
     this.eventDescription = eventDescription;
     this.latitude = latitude;
@@ -23,6 +24,7 @@ export class MapEvent {
     this.startEvent = startEvent;
     this.endEvent = endEvent;
     this.categories = categories;
+    this.status = status;
 
   }
   public setUserId(userId: number) {
