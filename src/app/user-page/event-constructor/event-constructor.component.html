@@ -12,36 +12,40 @@
 
       <div>
         <div class="fieldName"><label>Category</label></div>
+        <div class="inputField">
         <p-multiSelect id="choose" [showToggleAll]="false" defaultLabel="" maxSelectedLabels="1" [options]="categoryArray" [(ngModel)]="selectedCategory"
-                       optionLabel="categoryName" [style]="{width:'175px','height': '30px'}"
+                       optionLabel="categoryName" [style]="{'width':'175px','height': '30px'}"
                        [panelStyle]="{width:'200px'}">
 
         </p-multiSelect>
+        </div>
 
       </div>
 
       <div>
         <div class="fieldName"><label for="location">Location</label></div>
-        <div><input class="inputField" type="text" pInputText id="location" [(ngModel)]="location">
+        <div ><input class="inputField" type="text" pInputText id="location" [(ngModel)]="location">
            </div>
       </div>
 
 
         <div class="fieldName">Start date</div>
         <div>
-          <p-calendar class="inputField" [minDate]="currentDate" [(ngModel)]="startEvent" [showTime]="true"></p-calendar>
+          <p-calendar [minDate]="currentDate" [(ngModel)]="startEvent" [showTime]="true"
+                       [inputStyle]="{'width':'175px','height': '30px'}"></p-calendar>
         </div>
 
 
         <div class="fieldName">End date</div>
-        <div>
-          <p-calendar class="inputField" [minDate]="currentDate" [(ngModel)]="endEvent" [showTime]="true"></p-calendar>
+        <div >
+          <p-calendar class="inputField"  [minDate]="currentDate" [(ngModel)]="endEvent" [showTime]="true"
+                      [inputStyle]="{'width':'175px','height': '30px'}"></p-calendar>
         </div>
 
       <div class="string">
         <div class="fieldName">Description</div>
         <div>
-          <textarea class="inputField"  pInputTextarea type="text" [(ngModel)]="eventDescription"></textarea>
+          <textarea class="description" pInputTextarea type="text" [(ngModel)]="eventDescription"></textarea>
         </div>
       </div>
       <div class="ui-g-12"><label>Lat: {{selectedLat.toFixed(4)}}  </label> <label>Lng: {{selectedLng.toFixed(4)}}  </label></div>
