@@ -4,7 +4,6 @@ import {map} from 'rxjs/operators';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {LatLng, LatLngLiteral} from '@agm/core';
 const httpOptions = {
-  // headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' })
   headers: new HttpHeaders().set('Content-Type', 'application/json')
 };
 @Injectable({
@@ -45,7 +44,6 @@ export class EventService {
     }
   addMapEvent(mapEvent: MapEvent) {
     console.log('SEND POST');
-    mapEvent.setUserId(27);
     return this.http.post<MapEvent>(this.urlParam, mapEvent, httpOptions);
   }
 
