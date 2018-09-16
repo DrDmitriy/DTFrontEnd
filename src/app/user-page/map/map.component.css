@@ -31,7 +31,7 @@ agm-map {
 
 }
 .event-info{
-  height:40%;
+  height:41%;
   background-color: azure;
 }
 
@@ -63,28 +63,28 @@ agm-map {
   border-bottom-color: black;
   border-bottom-width: medium;
 
-  border-top-style: solid;
-  border-top-color: black;
-  border-top-width: medium;
 
 }
 .switch-label{
-  width: 25%;
+  width: 7em;
   float: left;
   margin-left: 15px;
+  margin-right: 1em;
+
 
 
 }
 .toggle{
-  width: 25%;
+  width: 5em;
   float: left;
-  padding-top: 2px;
-  margin-right: 30px;
+
+
 }
 
 .choose {
-  float: left;
-  width: 30%;
+  position: absolute;
+  right: 20px;
+
 }
 #logout {
   position: absolute;
