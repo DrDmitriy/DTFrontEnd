@@ -31,10 +31,10 @@ export class MapContentComponent implements OnInit {
               public markerManager: MarkerManager,
               public infoWindowsManager: InfoWindowManager,
               public eventService: EventService,
-              private polygonManager: PolygonManager) {
+              public polylineServices: PolylineService) {
   }
 
-  polylineServices = new PolylineService();
+   // polylineServices = new PolylineService();
   windowServices = new WindowService();
   markerServices = new MarkerService();
   routeInfoService = new RouteInfoService(this.mapApiWrapper);
@@ -49,6 +49,11 @@ export class MapContentComponent implements OnInit {
   @Output() openRoutePanel = new EventEmitter<Route>();
 
   ngOnInit() {
+    this.polylineServices.httpGetMapRoute().subscribe(routesArr =>
+      routesArr.forEach(coorsd => coorsd.route.forEach(point => {
+        console.log('ROUTE LAT: ' + point.lat);
+        console.log('ROUTE LNG: ' + point.lng);
+      }))  );
     this.addContentOnMap();
 
 
