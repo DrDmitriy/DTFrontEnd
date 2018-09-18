@@ -119,7 +119,8 @@ export class AdminPageComponent implements OnInit {
   logout() {
     localStorage.removeItem('token');
     this.cookieService.deleteAll();
-    this.router.navigateByUrl('/home');
+    // this.router.navigateByUrl('/home');
+    window.location.href = '/home';
   }
 
   cancel() {

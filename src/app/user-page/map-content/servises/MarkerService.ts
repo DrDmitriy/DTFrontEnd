@@ -26,7 +26,7 @@ export class MarkerService {
     marker.longitude = coordinate.lng;
     manager.addMarker(marker);
     manager.createEventObservable('click', marker).subscribe(() => {
-      mapContent.clickMarker(marker, infoWindow);
+       mapContent.clickMarker(marker, infoWindow);
       mapContent.openRoutePanel.emit(route);
     });
     return marker;
