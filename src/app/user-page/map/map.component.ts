@@ -50,6 +50,7 @@ export class MapComponent implements OnInit {
         this.categoryArray.push(category)));
     console.log('clt = ' + this.categoryArray.length);
     this.firstInitEvent();
+
   }
   onEventMode() {
     this.selectedCategory = [];
@@ -58,6 +59,7 @@ export class MapComponent implements OnInit {
     this.eventModeOn = true;
   }
   clickOnMap($event) {
+
     if (this.eventModeOn) {
       this.marker = this.mapContent.markerServices.addTempEventMarker(this.mapContent.markerManager, $event.coords.lat, $event.coords.lng );
       this.eventConstructor.setLatLng($event.coords.lat, $event.coords.lng);
@@ -160,6 +162,7 @@ export class MapComponent implements OnInit {
   logout(){
     localStorage.removeItem('token');
     this.cookieService.deleteAll();
-    this.router.navigateByUrl('/home');
+    // this.router.navigateByUrl('/home');
+    window.location.href = '/home';
   }
 }

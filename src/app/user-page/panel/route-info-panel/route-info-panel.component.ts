@@ -13,8 +13,8 @@ export class RouteInfoPanelComponent implements OnInit {
   duration: string;
   start: string;
   finish: string;
-  options = {year: 'numeric', month: 'short',
-    day: 'numeric'};
+  options = { year: 'numeric', month: 'short',
+    day: 'numeric', hour: 'numeric', minute: 'numeric' };
 
   constructor() { }
 

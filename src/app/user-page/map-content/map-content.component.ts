@@ -34,7 +34,6 @@ export class MapContentComponent implements OnInit {
               public polylineServices: PolylineService) {
   }
 
-   // polylineServices = new PolylineService();
   windowServices = new WindowService();
   markerServices = new MarkerService();
   routeInfoService = new RouteInfoService(this.mapApiWrapper);
@@ -43,20 +42,15 @@ export class MapContentComponent implements OnInit {
   eventMarkerArray: Array<EventMarker> = [];
   eventIconUrl = 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/48/Map-Marker-Marker-Inside-Pink-icon.png';
   verifyEventIconUrl = 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/48/Map-Marker-Marker-Inside-Azure-icon.png';
-
+  options = { year: 'numeric', month: 'short',
+    day: 'numeric', hour: 'numeric', minute: 'numeric' };
   @Input() localEvent: MapEvent;
   @Output() openEventPanel = new EventEmitter<MapEvent>();
   @Output() openRoutePanel = new EventEmitter<Route>();
 
   ngOnInit() {
-    this.polylineServices.httpGetMapRoute().subscribe(routesArr =>
-      routesArr.forEach(coorsd => coorsd.route.forEach(point => {
-        console.log('ROUTE LAT: ' + point.lat);
-        console.log('ROUTE LNG: ' + point.lng);
-      }))  );
+    console.log('%%%%%' + this.polylineServices.allRoute.length);
     this.addContentOnMap();
-
-
   }
 
   public loadEvent(ne: LatLngLiteral, sw: LatLngLiteral) {
@@ -67,13 +61,11 @@ export class MapContentComponent implements OnInit {
   }
 
  public addAllEventsOnMap() {
-     this.markerServices.addEventMarkersOnMap(this, this.eventIconUrl);//this.markerManager, this.eventService.allShowEvent, this.isVisibleEvents, this.openEventPanel);
-
+     this.markerServices.addEventMarkersOnMap(this, this.eventIconUrl);
   }
 
   public addEventOnMap(mapEvent: MapEvent, iconEvent: string) {
-    let marker = this.markerServices.addEventMarkerOnMap(this, mapEvent, iconEvent);// .markerManager, mapEvent, this.isVisibleEvents, this.openEventPanel);
-
+    let marker = this.markerServices.addEventMarkerOnMap(this, mapEvent, iconEvent);
     this.eventMarkerArray.push({event: mapEvent, marker: marker});
 
     return marker;
@@ -97,42 +89,40 @@ export class MapContentComponent implements OnInit {
     }));
   }
 
-  async addContentOnMap() {
-    for (let i = 0; i < ROUTES.routes.length; i++) {
-      await this.routeInfoService.countDistance(ROUTES.routes[i]);
-      this.routeInfoService.countDuration(ROUTES.routes[i]);
-      const coordinate: Array<LatLngLiteral> = ROUTES.routes[i].route;
+  addContentOnMap() {
+     this.polylineServices.httpGetMapRoute().subscribe(routesArr =>
+      routesArr.forEach(route => {
 
-      let agmPoliline = this.polylineServices.addPolylaneOnMap(ROUTES.routes[i], this);
+        // await
+        this.routeInfoService.countDistance(route);
+      this.routeInfoService.countDuration(route);
+      const coordinate: Array<LatLngLiteral> = route.route;
 
-     // this.polilineManager.createEventObservable('click', agmPoliline).subscribe(() => this.clickPolyline(agmPoliline));
-     // this.polylineServices.addRoute(agmPoliline);
+      let agmPoliline = this.polylineServices.addPolylaneOnMap(route, this);
 
       let startInfoWin: AgmInfoWindow = this.windowServices.addInfoWindowOnMap(this.infoWindowsManager, {
         position: coordinate[0],
-        content: 'Distance: ' + ROUTES.routes[i].distance.toFixed(2) + ' km. \n' + 'Duration: ' + ROUTES.routes[i].duration
+       // content: 'Distance: ' + route.distance.toFixed(2) + ' km. \n' + 'Duration: ' + route.duration
+        content: 'Start: ' + new Date(route.route[0].date).toLocaleTimeString('RU', this.options)
       });
       let endInfoWin: AgmInfoWindow = this.windowServices.addInfoWindowOnMap(this.infoWindowsManager, {
         position: coordinate[coordinate.length - 1],
-        content: 'Distance: ' + ROUTES.routes[i].distance.toFixed(2) + ' km. \n' + 'Duration: ' + ROUTES.routes[i].duration
+       // content: 'Distance: ' + route.distance.toFixed(2) + ' km. \n' + 'Duration: ' + route.duration
+        content: 'Finish: ' + new Date(route.route[route.route.length-1].date).toLocaleTimeString('RU',this.options)
       });
 
-      let markerA = this.markerServices.addMarkerOnMap(this.markerManager, coordinate[0], this, startInfoWin, ROUTES.routes[i]);
-      let markerB = this.markerServices.addMarkerOnMap(this.markerManager, coordinate[coordinate.length - 1], this, endInfoWin, ROUTES.routes[i]);
-
-      // this.markerManager.createEventObservable('click', markerA).subscribe(() => this.clickMarker(markerA, startInfoWin));
-      // this.markerManager.createEventObservable('click', markerB).subscribe(() => this.clickMarker(markerB, endInfoWin));
-
+      let markerA = this.markerServices.addMarkerOnMap(this.markerManager, coordinate[0], this, startInfoWin, route);
+      let markerB = this.markerServices.addMarkerOnMap(this.markerManager, coordinate[coordinate.length - 1], this, endInfoWin, route);
 
       this.markerServices.addMarkerRoute(new MarkerRoute(agmPoliline, markerA, markerB));
 
       this.windowServices.addInfoWindow(startInfoWin);
       this.windowServices.addInfoWindow(endInfoWin);
-    }
+    }));
   }
 
   clickMarker(marker: AgmMarker, windows: AgmInfoWindow) {
-    this.windowServices.openInfoWIndows(windows);
+    this.windowServices.openInfoWIndows(windows); // Do not delete this line
     this.markerServices.getAllMarker().filter((markerRoute) =>
       markerRoute.startPointMarker.id() === marker.id() || markerRoute.endPointMarker.id() === marker.id())
       .forEach((route) => {

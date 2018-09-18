@@ -42,27 +42,33 @@ export class PolylineService {
 
   public addPolylaneOnMap(route: Route , mapContent: MapContentComponent) {
     let polyline: AgmPolyline = new AgmPolyline(mapContent.polilineManager);
+    polyline.visible = true;
     mapContent.polilineManager.addPolyline(polyline);
     mapContent.polilineManager.setPolylineOptions(polyline, {
       path: route.route,
       strokeColor: 'black'
     });
+    this.addRoute(polyline);
     mapContent.polilineManager.createEventObservable('click', polyline).subscribe(() => {
       mapContent.windowServices.closeAllInfoWindows();
       this.unfocusedPolilanes(mapContent.polilineManager);
       this.focucedPolylane(mapContent.polilineManager, polyline);
       mapContent.openRoutePanel.emit(route);
     });
-    this.addRoute(polyline);
+
 
     return polyline;
   }
 
   public unfocusedPolilanes(manager: PolylineManager) {
-    this.allRoute.map(agm => this.changeColorPolilane(manager, agm, 'black'));
+    console.log("LLLLLLLL " + this.allRoute.length);
+    this.allRoute.forEach(agm => {console.log(agm);
+      this.changeColorPolilane(manager, agm, 'black');
+    });
   }
 
   changeColorPolilane(manager: PolylineManager, polylane: AgmPolyline, color: string) {
+    console.log("ERROR");
     manager.setPolylineOptions(polylane, {
       strokeColor: color
     });

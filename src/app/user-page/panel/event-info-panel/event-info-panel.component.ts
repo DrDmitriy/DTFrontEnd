@@ -13,8 +13,8 @@ export class EventInfoPanelComponent implements OnInit {
   startDate: string;
   endDate: string;
   categories: string;
-  options = { weekday: 'long', year: 'numeric', month: 'short',
-    day: 'numeric' };
+  options = { year: 'numeric', month: 'short',
+    day: 'numeric', hour: 'numeric', minute: 'numeric' };
 
   constructor() { }
 

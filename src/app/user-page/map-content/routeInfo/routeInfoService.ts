@@ -16,10 +16,11 @@ export class RouteInfoService {
     return promisN;
   }
 
-   async countDistance(route: Route) {
+  async countDistance(route: Route) {
     let sumDistance = 0;
     for (let i = 0; i < route.route.length - 1; i++) {
-      sumDistance += await this.countDistancePoints(route.route[i], route.route[i + 1]);
+       sumDistance += await this.countDistancePoints(route.route[i], route.route[i + 1]);
+       // this.countDistancePoints(route.route[i], route.route[i + 1]).then(value => sumDistance += value );
     }
     route.distance = sumDistance;
     return sumDistance;
